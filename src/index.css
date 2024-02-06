@@ -12,6 +12,6 @@ body{
     position: relative;
 }
 #root{
-    overflow-x: hidden;
+    overflow: hidden;
     position: relative;
 }

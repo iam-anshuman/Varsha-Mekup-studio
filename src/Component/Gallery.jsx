@@ -32,6 +32,8 @@ export default function Gallery() {
 
   return (
     <>
+    <div className='bg-slate-600'>
+
      <PhotoAlbum photos={photos} layout="masonry" targetRowHeight={150} onClick={({ index }) => setIndex(index)} />
 
       <Lightbox
@@ -41,7 +43,8 @@ export default function Gallery() {
         close={() => setIndex(-1)}
         // enable optional lightbox plugins
         plugins={[Fullscreen]}
-      />
+        />
+      </div>
     </>
   )
 }
