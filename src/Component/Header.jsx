@@ -22,7 +22,7 @@ export default function Header() {
 <header className="text-gray-400 bg-gray-800 body-font ">
   <div className="container mx-auto flex flex-wrap p-5 flex-col md:flex-row items-center max-md:items-start ">
     <Link className="flex title-font font-medium items-center max-md:mx-auto text-white mb-4 md:mb-0" to='/'>
-      <img src='src/assets/logo.svg' className="h-16 w-16 bg-contain rounded invert"/>
+      <img src='src/assets/logo.png' className="h-16 w-16 bg-contain rounded invert"/>
       <span className="ml-3 text-base">
         <div className='m-0 p-0'>Versa</div>
         <div className='m-0 p-0'>Mekup</div>

@@ -7,6 +7,10 @@ import LoginPage from "./Pages/LoginPage";
 import ErrorPage from "./Pages/ErrorPage";
 import MyProfile from "./Pages/MyProfile";
 import PrivateRoute from "./Pages/PrivateRoute";
+import AdminPanelLayout from "./Pages/AdminPanelLayout";
+import IssueCertificate from "./Component/IssueCertificate";
+import  AdminLogin from "../src/Component/AdminLogin"
+import Dashboard from "./Component/Dashboard";
 
 const router = createBrowserRouter([
   {
@@ -43,7 +47,30 @@ const router = createBrowserRouter([
         path:"*",
         element:<ErrorPage/>
       }
-    ]
+    ],
+  },
+  {
+    path:"/admins-panel",
+    element:<AdminPanelLayout/>,
+    children:[
+      {
+        index:true,
+        element:<Dashboard/>
+      },
+      {
+        path:"issue-certificate",
+        element:<IssueCertificate/>
+      },
+      {
+        path:"login",
+        element:<AdminLogin/>
+      }
+      ,{
+        path:"*",
+        element:<ErrorPage/>
+      }
+    ],
+
   }
 ])
 
