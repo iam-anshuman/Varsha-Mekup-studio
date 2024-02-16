@@ -1,8 +1,12 @@
 import React from 'react';
 import { useLogin } from '../hooks/useLogin';
+import { Navigate, useNavigate } from 'react-router-dom';
+import { useAuthContext } from '../hooks/useAuthContext';
 
 export default function Login() {
 	const {login,error,isLoading} = useLogin();
+	const {user} = useAuthContext();
+	const navigate = useNavigate();
 
 
 	const handleLoginUser = async(e)=>{
@@ -10,7 +14,7 @@ export default function Login() {
 		const email = e.target.email.value;
 		const password = e.target.password.value;
 		const response = await login(email, password);;
-		response && console.log(response);
+		response && navigate('/');
 		error && alert(error);
 		e.target.email.value = '';
 		e.target.password.value = '';
@@ -18,6 +22,7 @@ export default function Login() {
 
   return (
     <>
+	{user ? <Navigate to={"/"}/> : 
     <section className="text-gray-400 bg-gray-900 body-font">
     <div className="min-h-screen bg-gray-900 py-6 flex flex-col justify-center sm:py-12">
     	<div className="relative py-3 sm:max-w-xl sm:mx-auto">
@@ -52,6 +57,7 @@ export default function Login() {
     	</div>
     </div>
     </section>
+	}
     </>
   )
 }

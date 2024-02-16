@@ -1,6 +1,5 @@
 import React,{useState} from 'react'
 import { IoIosPerson } from "react-icons/io";
-import { TbCertificate } from "react-icons/tb";
 import { MdLogout } from "react-icons/md";
 import clsx from 'clsx';
 import { useLogout } from '../hooks/useLogout';
@@ -21,10 +20,6 @@ export default function Profile(props) {
                     <IoIosPerson className='inline mb-1 mr-2' size={25}/>
                     My Profile
                 </Link>
-                <div className="text-lg border-b-2 p-2 cursor-pointer hover:bg-slate-800">
-                    <TbCertificate className='inline mb-1 mr-2' size={25}/>
-                    My Certificates
-                </div>
                 <div className="text-lg p-2 cursor-pointer hover:bg-slate-800" onClick={()=>{logout()}}>
                     <MdLogout className='inline mb-1 mr-2' size={25} />
                     Logout</div>
