@@ -11,6 +11,9 @@ import AdminPanelLayout from "./Pages/AdminPanelLayout";
 import IssueCertificate from "./Component/IssueCertificate";
 import  AdminLogin from "../src/Component/AdminLogin"
 import Dashboard from "./Component/Dashboard";
+import Users from "./Component/Users";
+import UserContacted from "./Component/UserContacted";
+import AdminUserServices from "./Component/AdminUserServices";
 
 const router = createBrowserRouter([
   {
@@ -64,6 +67,18 @@ const router = createBrowserRouter([
       {
         path:"login",
         element:<AdminLogin/>
+      },
+      {
+        path:"users",
+        element:<Users/>
+      },
+      {
+        path:"user-contacted",
+        element:<UserContacted/>
+      },
+      {
+        path:"user-service",
+        element:<AdminUserServices/>
       }
       ,{
         path:"*",

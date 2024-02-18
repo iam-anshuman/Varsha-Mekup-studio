@@ -6,7 +6,7 @@ export default function Footer() {
     <footer className="text-gray-400 bg-gray-900 body-font sticky bottom-0 w-full h-28">
   <div className="container px-5 py-8 mx-auto flex items-center sm:flex-row flex-col">
     <a className="flex title-font font-medium items-center md:justify-start justify-center text-white">
-    <img src='src/assets/logo.svg' className="h-16 w-16 bg-contain rounded invert"/>
+    <img src='src/assets/logo.png' className="h-16 w-16 bg-contain rounded invert"/>
       <span className="ml-3 text-base">
         <div className='m-0 p-0'>Versa</div>
         <div className='m-0 p-0'>Mekup</div>

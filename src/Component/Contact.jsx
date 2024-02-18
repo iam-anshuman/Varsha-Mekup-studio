@@ -1,6 +1,62 @@
-import React from 'react'
+import React,{useState} from 'react'
 
 export default function Contact() {
+  const [userContact,setUserContact] = useState({
+    name:"",
+    phone:"",
+    course:"",
+    message:""
+  });
+
+  const handleUserContacted = async () => {
+    if(userContact.name === "" || userContact.phone === "" || userContact.course === "" || userContact.message === ""){
+      alert("Please fill all the fields");
+      return;
+    }
+    const response = await fetch("http://localhost:4000/user/userContacted",{
+      method:"POST",
+      headers:{
+        "Content-Type":"application/json"
+      },
+      body:JSON.stringify(userContact)
+    });
+    const data = await response.json();
+    if(response.status === 201){
+      alert(data.message);
+      setUserContact({
+        name:"",
+        phone:"",
+        course:"",
+        message:""
+      });
+    }
+    else{
+      setUserContact({
+        name:"",
+        phone:"",
+        course:"",
+        message:""
+      });
+      alert(data.message);
+    }
+
+  }
+
+  const handleInputChange = (e) => {
+    const {name,value} = e.target;
+    setUserContact({
+      ...userContact,
+      [name]:value
+    });
+  }
+
+  const handleCourseChange = (event) => {
+    setUserContact({
+      ...userContact,
+      course: event.target.value
+    });
+  };
+
   return (
     <>
     <section id='contactUs' className="text-gray-400 bg-gray-900 body-font relative">
@@ -25,28 +81,29 @@ export default function Contact() {
       <p className="leading-relaxed mb-5">Let's learn new skills with us and grow in your life</p>
       <div className="relative mb-4">
         <label htmlFor="name" className="leading-7 text-sm text-gray-400">Name</label>
-        <input type="text" id="name" name="name" className="w-full bg-gray-800 rounded border border-gray-700 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-900 text-base outline-none text-gray-100 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out"/>
+        <input type="text" id="name" name="name" className="w-full bg-gray-800 rounded border border-gray-700 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-900 text-base outline-none text-gray-100 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out" onChange={handleInputChange} value={userContact.name}/>
       </div>
       <div className="relative mb-4">
         <label htmlFor="phone" className="leading-7 text-sm text-gray-400">Phone Number</label>
-        <input type="number" id="phone" name="phone" className="w-full bg-gray-800 rounded border border-gray-700 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-900 text-base outline-none text-gray-100 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out"/>
+        <input type="number" id="phone" name="phone" className="w-full bg-gray-800 rounded border border-gray-700 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-900 text-base outline-none text-gray-100 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out" onChange={handleInputChange} value={userContact.phone}/>
       </div>
       <div className="relative mb-4">
       <label htmlFor="course" className="leading-7 text-sm text-gray-400">Select Course</label>
-       <select name="course" id="course" className='w-full  bg-gray-800 rounded border border-gray-700 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-900 text-base outline-none text-gray-100 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out'>
-        <option>Beautician Course - 6 Months</option>
-        <option>Mehendi Course - 3 Months</option>
-        <option>Makeup course - 3 Months</option>
-        <option>Silai Course - 6 Months</option>
-        <option>Nail Art Course - Months</option>
+       <select name="course" id="course"  className='w-full  bg-gray-800 rounded border border-gray-700 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-900 text-base outline-none text-gray-100 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out' value={userContact.course} onChange={handleCourseChange}>
+        <option value="">--Please choose an option--</option>
+        <option value={"Beautician Course - 6 Months"}>Beautician Course - 6 Months</option>
+        <option value={"Mehendi Course - 3 Months"}>Mehendi Course - 3 Months</option>
+        <option value={"Makeup course - 3 Months"}>Makeup course - 3 Months</option>
+        <option value={"Silai Course - 6 Months"}>Silai Course - 6 Months</option>
+        <option value={"Nail Art Course - Months"}>Nail Art Course - Months</option>
        </select>
       </div>
 
       <div className="relative mb-4">
         <label htmlFor="message" className="leading-7 text-sm text-gray-400">Leave a message</label>
-        <textarea id="message" name="message" className="w-full bg-gray-800 rounded border border-gray-700 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-900 h-32 text-base outline-none text-gray-100 py-1 px-3 resize-none leading-6 transition-colors duration-200 ease-in-out"></textarea>
+        <textarea id="message" name="message" className="w-full bg-gray-800 rounded border border-gray-700 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-900 h-32 text-base outline-none text-gray-100 py-1 px-3 resize-none leading-6 transition-colors duration-200 ease-in-out" onChange={handleInputChange} value={userContact.message}></textarea>
       </div>
-      <button className="text-white bg-indigo-500 border-0 py-2 px-6 focus:outline-none hover:bg-indigo-600 rounded text-lg">Button</button>
+      <button className="text-white bg-indigo-500 border-0 py-2 px-6 focus:outline-none hover:bg-indigo-600 rounded text-lg" onClick={handleUserContacted}>Button</button>
     </div>
   </div>
 </section>

@@ -104,11 +104,11 @@ export default function IssueCertificate() {
     state.adminToken
     ?
 
-    <div className='h-[80rem] basis-3/4 bg-slate-700 ml-2  py-4  '>
+    <div className='h-[80rem] basis-5/6 md:basis-3/4 bg-slate-700 ml-2  py-4  '>
     <div className='underline decoration-wavy decoration-slate-400 font-serif text-white text-center text-4xl'>Issue a Certificate to the Student</div>
     <div className="relative my-4 bg-slate-700 ">
-              <div className="mx-auto my-10 w-1/2">
-                  <div className="divide-y divide-gray-200 shadow-lg shadow-black rounded-lg p-8">
+              <div className="mx-auto my-10 md:w-1/2">
+                  <div className="divide-y bg-gray-600 divide-gray-200 shadow-lg shadow-black rounded-lg p-8">
                       <form onSubmit={handleGenerateCertificate}>
                           <div className="py-8 text-base leading-6 space-y-4 text-gray-700 sm:text-lg sm:leading-7">
                 <div className='text-white text-2xl'>Generate certificate</div>
@@ -136,7 +136,7 @@ export default function IssueCertificate() {
                      </select>
                 </div>
                 <div className="relative mb-2">
-                                      <label htmlFor="course_starting" className="leading-7 text-lg text-gray-200">Select Course Starting Month</label>
+                    <label htmlFor="course_starting" className="leading-7 text-sm md:text-lg text-gray-200">Select Course Starting Month</label>
                       <select name="course_starting" id="Course_starting" className='w-full  bg-gray-800 rounded border border-gray-700 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-900 text-base outline-none text-gray-100 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out' >
                           <option>January</option>
                           <option>February</option>
@@ -153,7 +153,7 @@ export default function IssueCertificate() {
                       </select>
                 </div>
                 <div className="relative mb-2">
-                                      <label htmlFor="course_ending" className="leading-7 text-lg text-gray-200">Select Course Ending Month</label>
+                    <label htmlFor="course_ending" className="leading-7 text-sm  md:text-lg text-gray-200">Select Course Ending Month</label>
                       <select name="course_ending" id="Course_ending" className='w-full  bg-gray-800 rounded border border-gray-700 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-900 text-base outline-none text-gray-100 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out' >
                           <option>January</option>
                           <option>February</option>
@@ -170,7 +170,8 @@ export default function IssueCertificate() {
                       </select>
                 </div>
                 <div className="relative mb-2">
-                    <label htmlFor='upload_image text-sm'>Upload Image</label>
+                    <label htmlFor='upload_image' className='leading-7 text-sm  md:text-lg text-gray-200'>Upload Image</label>
+                    <p className='text-sm opacity-30 text-slate-200'>Image should be less than 2MB, image should be 2800px X 2800px and Image should be in Jpg or jpeg format</p>
                     <input type="file" id="upload_image" name="upload_image" accept="image/*" onChange={ValidateImage} className="w-full bg-gray-800 rounded border border-gray-700 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-900 text-base outline-none text-gray-100 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out"/>
                 </div>
               <div className="relative">
