@@ -26,7 +26,7 @@ export default function Testimonial() {
     <section className='w-full bg-gray-900' id='testimonials'>
     <div className="container px-5 py-24 mx-auto  ">
     <div className="text-slate-300 text-3xl text-center font-mono mb-16">Testimonials</div>
-    <div className='flex flex-wrap '>
+    <div className='flex flex-wrap flex-col md:flex-row'>
     {testimonials.map((testimonial,index)=>(
         <div key={index} className="text-gray-400 bg-gray-900 body-font w-[30%] py-5 mx-auto ">
             <div className="text-center">
