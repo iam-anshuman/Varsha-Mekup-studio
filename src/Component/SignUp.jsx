@@ -1,9 +1,14 @@
 import React from 'react';
 import { useSignup } from '../hooks/useSignup';
+import { useAuthContext } from '../hooks/useAuthContext';
+import { Navigate } from 'react-router-dom';
+
 
 export default function SignUp() {
 
 	const {signup,error,isLoading} = useSignup();
+	const {user} = useAuthContext();
+
 
 	  const handleSignupUser = async(e)=>{
 		e.preventDefault();
@@ -25,7 +30,8 @@ export default function SignUp() {
 
   return (
     <>
-    <section className="text-gray-400 bg-gray-900 body-font">
+{     user ? <Navigate to={"/"}/> :
+<section className="text-gray-400 bg-gray-900 body-font">
     <div className="min-h-screen bg-gray-900 py-6 flex flex-col justify-center sm:py-12">
     	<div className="relative py-3 sm:max-w-xl sm:mx-auto">
     		<div
@@ -72,7 +78,8 @@ export default function SignUp() {
     		</div>
     	</div>
     </div>
-    </section>
+</section>
+}
     </>
   )
 }
