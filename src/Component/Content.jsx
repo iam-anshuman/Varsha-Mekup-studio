@@ -98,7 +98,7 @@ const settings = {
                 <h2 className="text-lg text-white font-medium title-font mb-4">{course.name}</h2>
                 <p className="leading-relaxed text-lg">{course.description}</p>
                 <h3 className="tracking-widest text-indigo-400 text-lg font-medium title-font">PRICE : {course.price}</h3>
-                <div className='bg-indigo-500 rounded text-lg w-1/4 p-2 my-2 hover:bg-indigo-600 cursor-pointer text-white'>Buy Now</div>
+                <a href="#contactUs"><div className='bg-indigo-500 rounded text-lg w-1/4 p-2 my-2 hover:bg-indigo-600 cursor-pointer text-white'>Buy Now</div></a>
               </div>
             </div>
       )}

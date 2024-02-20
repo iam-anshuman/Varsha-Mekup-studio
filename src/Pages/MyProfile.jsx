@@ -7,6 +7,7 @@ import {useLogout} from "../hooks/useLogout";
 pdfjs.GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjs.version}/pdf.worker.js`;
 
 export default function MyProfile() {
+
   const {user} = useAuthContext();
   const [studentInformation, setStudentInformation] = useState([]);
   const [certificateDetails, setCertificateDetails] = useState([]);
@@ -19,14 +20,18 @@ export default function MyProfile() {
     if(!user){
       alert("You are not logged in, please login to continue.");
     }
+
+
     async function fetchData(){
     setLoading(true);
+    const userToken = localStorage.getItem('token');
     const response = await fetch('http://localhost:4000/getDetails/user',{
       method:"GET",
       headers:{
-        'Authorization': 'Bearer '+user,
+        'Authorization': 'Bearer '+userToken,
       }
     })
+
     const data = await response.json();
     if(response.ok){
       setLoading(false);
@@ -38,8 +43,11 @@ export default function MyProfile() {
       setLoading(false);
       alert(data.message);
     }
+
   }
+
   fetchData();
+
   },[user]);
 
 
@@ -48,7 +56,7 @@ export default function MyProfile() {
 
 
 {loading ? loading :
-studentInformation && 
+  user && studentInformation && 
       <div className='bg-slate-400 h-full text-white'>
       <div className="flex max-md:flex-col">
         <div className='w-1/4 h-full my-4 mr-4 basis-1/4'>
