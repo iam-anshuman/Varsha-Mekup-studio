@@ -14,6 +14,7 @@ import Dashboard from "./Component/Dashboard";
 import Users from "./Component/Users";
 import UserContacted from "./Component/UserContacted";
 import AdminUserServices from "./Component/AdminUserServices";
+import AdminIssuedCertificate from "./Component/AdminIssuedCertificates";
 
 const router = createBrowserRouter([
   {
@@ -63,6 +64,10 @@ const router = createBrowserRouter([
       {
         path:"issue-certificate",
         element:<IssueCertificate/>
+      },
+      {
+        path:"certificates-issued",
+        element:<AdminIssuedCertificate/>
       },
       {
         path:"login",

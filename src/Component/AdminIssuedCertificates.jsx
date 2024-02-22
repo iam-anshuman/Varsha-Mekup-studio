@@ -1,17 +1,20 @@
-import React,{useEffect, useState} from 'react';
+import React,{useEffect, useState,useContext} from 'react';
 import { useAdminAuthHook } from '../hooks/useAdminAuthHook';
-import { Navigate } from 'react-router-dom';
+import { Navigate} from 'react-router-dom';
 import Toaster from './Toaster';
+import { DeleteIcon, DownloadIcon } from './Icons';
+import download from 'downloadjs';
+import { CertificateContext } from '../Context/CertificateContext';
 
-export default function Users() {
+export default function AdminIssuedCertificate() {
     const {state} = useAdminAuthHook();
     const [index, setIndex] = useState(0);
-    const [users, setUsers] = useState([]);
+    const [certificates, setCertificates] = useState([]);
     const [toasterMessage,setToasterMessage] = useState('');
 
     useEffect(()=>{
         async function fetchUsers(index){
-            const response = await fetch(`http://localhost:4000/admin/api/getUsers?page=${index}`,{
+            const response = await fetch(`http://localhost:4000/admin/api/getCertificateDetails?page=${index}`,{
                 method:"GET",
                 headers:{
                     "Authorization":`Bearer ${state.adminToken}`
@@ -22,7 +25,7 @@ export default function Users() {
                 setToasterMessage("No more users");
                 setIndex(0);
             }
-            setUsers(data);
+            setCertificates(data);
         }
         fetchUsers(index);
     },[index]);
@@ -35,17 +38,59 @@ export default function Users() {
         setIndex(index-1);
     }
 
+
+    const handleDownload = async (id) => {
+        try {
+
+            const response = await fetch(`http://localhost:4000/admin/api/downloadCertificate/${id}`,{
+                method:"GET",
+                headers:{
+                    "Authorization":`Bearer ${state.adminToken}`,
+                    "Response-Type":"blob"
+                }
+            });
+            const blob = await response.blob();
+            download(blob,`Certificate.pdf`)
+
+
+        } catch (error) {
+
+            console.log("Error while downloading file: ",error);
+
+        }
+
+    }
+
+    const handleDelete = async (id) => {
+
+        try {
+            const response = await fetch(`http://localhost:4000/admin/api/deleteCertificate/${id}`,{
+                method:"DELETE",
+                headers:{
+                    "Authorization":`Bearer ${state.adminToken}`
+                }
+            })
+
+            const data = await response.json();
+            console.log(data);
+
+        } catch (error) {
+            
+        }
+
+        console.log(id);
+    }
+
   return (
     <>
-    {
-        state.adminToken ? 
-        <div className='h-[80rem] basis-3/4 bg-slate-700 ml-2 py-4 overflow-x-scroll'>
-            {toasterMessage && <Toaster toasterMessage={toasterMessage} setToasterMessage={setToasterMessage} type={"danger"}/>}
-            <div className='text-white text-6xl text-center underline underline-offset-2'>USERS</div>
-            <div className='w-5/6 my-10 text-white bg-slate-600 rounded-lg shadow-lg shadow-black p-6 mx-auto'>
-                <div className='border-2 border-white'>              
-
-        <div className="relative overflow-x-auto">
+        {state.adminToken ? (
+        <div className="h-[80rem] basis-3/4 bg-slate-700 ml-2 p-4 overflow-y-scroll">
+          {toasterMessage && <Toaster toasterMessage={toasterMessage} setToasterMessage={setToasterMessage} type={"danger"}/>}
+          <div className="border-2 border-white rounded-xl shadow-xl shadow-black my-10">
+            <div className="text-3xl text-white font-bold my-2  text-center">
+              Issued Certificates
+            </div>
+            <div className="relative overflow-x-auto">
             <table className="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
                 <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
                     <tr>
@@ -58,25 +103,39 @@ export default function Users() {
                         <th scope="col" className="px-6 py-3">
                             Phone Number
                         </th>
+                        <th scope="col" className="px-6 py-3">
+                            Course Name
+                        </th>
+                        <th scope="col" className="px-6 py-3">
+                            Download/Delete
+                        </th>
                     </tr>
                 </thead>
                 <tbody>
 
-{users.users &&   users.users.map((user) => {
+{certificates.length > 0 ? certificates.map((certificate) => {
     return(
-                    <tr key={user._id} className="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
+                    <tr key={certificate._id} className="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
                         <th scope="row" className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                            {user.firstName+ " " + user.lastName}
+                            {certificate.student_name}
                         </th>
                         <td className="px-6 py-4">
-                            {user.email}
+                            {certificate.student_email}
                         </td>
                         <td className="px-6 py-4">
-                            {user.phone}
+                            {certificate.student_phone}
+                        </td>
+                        <td className="px-6 py-4">
+                            {certificate.course_name}
+                        </td>   
+                        <td className="px-6 py-4">
+                            <div className='cursor-pointer inline-block mx-2' onClick={()=>{handleDownload(certificate._id)}}><DownloadIcon/></div><div className='cursor-pointer inline-block mx-2' onClick={()=>{handleDelete(certificate._id)}}><DeleteIcon/></div>
                         </td>
                     </tr>
     )
 })
+:
+<div className='text-2xl text-center my-2'>There is No Certificate to show</div>
   
 }
                 </tbody>
@@ -106,14 +165,11 @@ export default function Users() {
                     </div>
         </div>
 
-</div>
+          </div>
         </div>
-        </div>
-
-        : 
-
-        <Navigate to="/admins-panel/login"/>
-    }
+      ) : (
+        <Navigate to="/admins-panel/login" />
+      )}
     </>
   )
 }

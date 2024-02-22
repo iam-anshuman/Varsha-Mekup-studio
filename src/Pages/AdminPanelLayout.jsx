@@ -39,6 +39,9 @@ export default function AdminPanelLayout() {
                 <Link to={"/admins-panel/issue-certificate"} className="text-white text-2xl ">Issue Certificates</Link>
             </div>
             <div className='p-2 hover:bg-slate-800 cursor-pointer'>
+                <Link to={"/admins-panel/certificates-issued"} className="text-white text-2xl ">Certificates</Link>
+            </div>
+            <div className='p-2 hover:bg-slate-800 cursor-pointer'>
                 <Link to={"/admins-panel/user-contacted"} className="text-white text-2xl ">User Contacted</Link>
             </div>
             <div className='p-2 hover:bg-slate-800 cursor-pointer'>

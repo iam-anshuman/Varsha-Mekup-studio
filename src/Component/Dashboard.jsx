@@ -1,10 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import { useAdminAuthHook } from '../hooks/useAdminAuthHook';
 import { Link, Navigate } from 'react-router-dom';
+import Toaster from './Toaster';
 
 export default function Dashboard() {
     const {state,dispatch} = useAdminAuthHook();
     const [dashboard,setDashboard] = useState({});
+    const [toasterMessage,setToasterMessage] = useState('');
+
 
     useEffect(()=>{
         const token = localStorage.getItem('adminToken');
@@ -17,7 +20,8 @@ export default function Dashboard() {
         });
         const data = await response.json();
         if(response.status === 401){
-            alert("Something Went Wrong");
+            setToasterMessage("Something Went Wrong");
+            dispatch({type:"LOGOUT"});
         }
         else{
             setDashboard(data);
@@ -32,6 +36,7 @@ export default function Dashboard() {
         state.adminToken ? dashboard &&
         
         <div className='overflow-y-scroll basis-3/4 bg-slate-700 ml-2 p-4'>
+            {toasterMessage && <Toaster toasterMessage={toasterMessage} setToasterMessage={setToasterMessage} type={"danger"}/>}
             <div className=''>
 
             <h1 className='text-2xl md:text-5xl text-white text-center mx-auto my-10 underline underline-offset-8 font-extrabold'>Dashboard</h1>

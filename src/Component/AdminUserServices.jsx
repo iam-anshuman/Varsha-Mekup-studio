@@ -1,11 +1,13 @@
 import React, { useEffect, useState } from "react";
 import { Navigate } from "react-router-dom";
 import { useAdminAuthHook } from "../hooks/useAdminAuthHook";
+import Toaster from "./Toaster";
 
 export default function AdminUserServices() {
   const { state } = useAdminAuthHook();
   const [userServices, setUserServices] = useState([]);
   const [index, setIndex] = useState(0);
+  const [toasterMessage,setToasterMessage] = useState('');
 
   useEffect(() => {
     async function fetchUserServices(index) {
@@ -20,7 +22,7 @@ export default function AdminUserServices() {
       );
       const data = await response.json();
       if (response.status === 404) {
-        alert("No more messages");
+        setToasterMessage("No more messages");
         setIndex(0);
       }
       setUserServices(data.userServices);
@@ -42,9 +44,10 @@ export default function AdminUserServices() {
     <>
       {state.adminToken ? (
         <div className="h-[80rem] basis-3/4 bg-slate-700 ml-2 p-4 overflow-y-scroll">
+          {toasterMessage && <Toaster toasterMessage={toasterMessage} setToasterMessage={setToasterMessage} type={"danger"}/>}
           <div className="border-2 border-white rounded-xl shadow-xl shadow-black ">
             <div className="text-3xl text-white font-bold my-2  text-center">
-              User Ask Services
+              User Booked Services
             </div>
 
             <div className="flex flex-wrap justify-around my-10 ">
@@ -52,11 +55,11 @@ export default function AdminUserServices() {
                 userServices.map((userService, index) => {
                   return (
                     <div
-                      key={index}
+                      key={userService._id}
                       className="block max-w-sm p-6 my-10 bg-white border border-gray-200 rounded-lg shadow hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700"
                     >
                       <div className="mb-2 text-center  text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
-                        Message
+                        Booked Service
                       </div>
                       <div className="mb-2  text-xl font-bold tracking-tight text-gray-900 dark:text-white">
                         Name :{" "}
@@ -79,6 +82,7 @@ export default function AdminUserServices() {
                     </div>
                   );
                 })}
+            </div>
               <div className="flex justify-center my-5">
                 {index === 0 ? (
                   <button
@@ -154,7 +158,6 @@ export default function AdminUserServices() {
                   </svg>
                 </button>
               </div>
-            </div>
           </div>
         </div>
       ) : (
