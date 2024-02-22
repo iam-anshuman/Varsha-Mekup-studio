@@ -1,8 +1,8 @@
-import { createContext, useEffect, useReducer } from "react";
+import { createContext, useContext, useReducer } from "react";
 
 export const CertificateContext = createContext();
 
-const reducer = (state, action) => {
+export const reducer = (state, action) => {
     switch (action.type) {
         case "DELETE_CERTIFICATE":
             return {
@@ -24,20 +24,37 @@ const reducer = (state, action) => {
                 ...state,
                 index: state.index - 1,
             };
+        case "FIRST_PAGE":
+            return{
+                ...state,
+                index : 0
+            }
+        default:
+            return{
+                certificates: [],
+                index: 0
+            }
     }
 }
 
-export const CertificateProvider = ({children}) => {
+export const CertificateContextProvider = ({children}) => {
 
     const [certificateState, certificateDispatch] = useReducer(reducer, {
         certificates: [],
         index: 0
     });
     
-
     return (
-        <CertificateContext.Provider value={{certificateState,certificateDispatch}}>
+        <CertificateContext.Provider value={{...certificateState,certificateDispatch}}>
             {children}
         </CertificateContext.Provider>
     )
+}
+
+export const useCertificateContext = () => {
+    const context = useContext(CertificateContext);
+    if (!context) {
+        throw Error("UseCertificateContext must be inside the CertificateContextProvider")
+    }
+    return context;
 }

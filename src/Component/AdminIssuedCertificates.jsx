@@ -1,19 +1,18 @@
-import React,{useEffect, useState,useContext} from 'react';
+import React,{useEffect, useState,} from 'react';
 import { useAdminAuthHook } from '../hooks/useAdminAuthHook';
 import { Navigate} from 'react-router-dom';
 import Toaster from './Toaster';
 import { DeleteIcon, DownloadIcon } from './Icons';
 import download from 'downloadjs';
-import { CertificateContext } from '../Context/CertificateContext';
+import { useCertificateContext } from '../Context/CertificateContext';
 
 export default function AdminIssuedCertificate() {
     const {state} = useAdminAuthHook();
-    const [index, setIndex] = useState(0);
-    const [certificates, setCertificates] = useState([]);
+    const {certificates, index , certificateDispatch} = useCertificateContext();
     const [toasterMessage,setToasterMessage] = useState('');
 
     useEffect(()=>{
-        async function fetchUsers(index){
+        async function fetchCertificares(index){
             const response = await fetch(`http://localhost:4000/admin/api/getCertificateDetails?page=${index}`,{
                 method:"GET",
                 headers:{
@@ -23,19 +22,19 @@ export default function AdminIssuedCertificate() {
             const data = await response.json();
             if(response.status === 404){
                 setToasterMessage("No more users");
-                setIndex(0);
+                certificateDispatch("FIRST_PAGE")
             }
-            setCertificates(data);
+            certificateDispatch({type:"FETCH_CERTIFICATES",payload:data});
         }
-        fetchUsers(index);
+        fetchCertificares(index);
     },[index]);
     
     const nextPage = () => {
-        setIndex(index+1);
+        certificateDispatch({type:"NEXT_PAGE"})
     }
     const prevPage = () => {
         if(index === 0) return;
-        setIndex(index-1);
+        certificateDispatch({type:"PREV_PAGE"})
     }
 
 
@@ -72,7 +71,7 @@ export default function AdminIssuedCertificate() {
             })
 
             const data = await response.json();
-            console.log(data);
+            certificateDispatch({payload:id,type:"DELETE_CERTIFICATE"});
 
         } catch (error) {
             
@@ -116,9 +115,9 @@ export default function AdminIssuedCertificate() {
 {certificates.length > 0 ? certificates.map((certificate) => {
     return(
                     <tr key={certificate._id} className="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
-                        <th scope="row" className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                        <td scope="row" className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
                             {certificate.student_name}
-                        </th>
+                        </td>
                         <td className="px-6 py-4">
                             {certificate.student_email}
                         </td>
@@ -135,7 +134,12 @@ export default function AdminIssuedCertificate() {
     )
 })
 :
-<div className='text-2xl text-center my-2'>There is No Certificate to show</div>
+<tr className='bg-white border-b dark:bg-gray-800 dark:border-gray-700'>
+    <td className='px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white'>
+        There is No Certificate to show
+    </td>
+    
+</tr>
   
 }
                 </tbody>
@@ -143,14 +147,14 @@ export default function AdminIssuedCertificate() {
                     <div className="flex justify-center">
                     {index === 0 ?
                       <button className=" flex items-center justify-center px-3 h-8 me-3 text-sm font-medium text-gray-500 bg-white border border-gray-300 rounded-lg  dark:bg-gray-600 dark:border-gray-700 dark:text-gray-400" disabled onClick={()=>{prevPage()}}>
-                      <svg className="w-3.5 h-3.5 me-2 rtl:rotate-180" ariaHidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 10">
+                      <svg className="w-3.5 h-3.5 me-2 rtl:rotate-180" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 10">
                         <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M13 5H1m0 0 4 4M1 5l4-4"/>
                       </svg>
                       Previous
                     </button>
                     :
                     <button className=" flex items-center justify-center px-3 h-8 me-3 text-sm font-medium text-gray-500 bg-white border border-gray-300 rounded-lg hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white" onClick={()=>{prevPage()}}>
-                        <svg className="w-3.5 h-3.5 me-2 rtl:rotate-180" ariaHidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 10">
+                        <svg className="w-3.5 h-3.5 me-2 rtl:rotate-180" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 10">
                           <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M13 5H1m0 0 4 4M1 5l4-4"/>
                         </svg>
                         Previous
@@ -158,7 +162,7 @@ export default function AdminIssuedCertificate() {
                     }
                       <button className="flex items-center justify-center px-3 h-8 text-sm font-medium text-gray-500 bg-white border border-gray-300 rounded-lg hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white" onClick={()=>{nextPage()}}>
                         Next
-                        <svg className="w-3.5 h-3.5 ms-2 rtl:rotate-180" ariaHidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 10">
+                        <svg className="w-3.5 h-3.5 ms-2 rtl:rotate-180" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 10">
                           <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M1 5h12m0 0L9 1m4 4L9 9"/>
                         </svg>
                       </button>
