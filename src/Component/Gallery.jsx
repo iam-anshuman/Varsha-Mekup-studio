@@ -25,6 +25,8 @@ const photos = [
     { src: "./src/assets/mehendi 1.jpg", width: 720, height: 720 },
     { src: "./src/assets/mehendi-2.jpg", width: 960, height: 1280 },
     { src: "./src/assets/mehendi-3.jpg", width: 1080, height: 1080 },
+    { src:"./src/assets/kanha-makeup.jpg", width:817, height:1225 },
+    { src:"./src/assets/kanha-makeup-2.jpg", width:817, height:1225 },
   ];
 
 export default function Gallery() {
@@ -33,7 +35,6 @@ export default function Gallery() {
   return (
     <>
     <div className='bg-slate-600'>
-
      <PhotoAlbum photos={photos} layout="masonry" targetRowHeight={150} onClick={({ index }) => setIndex(index)} />
 
       <Lightbox

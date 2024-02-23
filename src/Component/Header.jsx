@@ -41,7 +41,6 @@ export default function Header() {
       <a className="mr-5 cursor-pointer text-xl hover:text-white " href='#testimonials'>Testimonial</a>
       <a className="mr-5 cursor-pointer text-xl hover:text-white " href='#contactUs'>Contact Us</a>
       <Link className="mr-5 cursor-pointer text-xl hover:text-white " to={"gallery"}>Gallery</Link>
-      {/* <Link className="mr-5 cursor-pointer text-xl hover:text-white ">About</Link> */}
     </nav>
     <nav className={styleClass} onClick={handleCloseDrawer}>
     <div className='sm:block lg:hidden w-20 absolute top-5 left-3/4' onClick={handleCloseDrawer}>
@@ -52,7 +51,6 @@ export default function Header() {
       <a className="mr-5 block cursor-pointer text-xl mx-6 my-10 hover:text-white " href='#testimonials'>Testimonial</a>
       <a className="mr-5 block cursor-pointer text-xl mx-6 my-10 hover:text-white " href='#contactUs'>Contact Us</a>
       <Link className="mr-5 block cursor-pointer text-xl mx-6 my-10 hover:text-white " to={"gallery"}>Gallery</Link>
-      <Link className="mr-5 block cursor-pointer text-xl mx-6 my-10 hover:text-white ">About</Link>
 {  !isLoggedIn &&
       <div>
       <Link to={"/signup"}>

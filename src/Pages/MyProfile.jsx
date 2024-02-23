@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useAuthContext } from '../hooks/useAuthContext';
 import { Document, Page, pdfjs } from 'react-pdf';
 import {useLogout} from "../hooks/useLogout";
+import { DownloadIcon } from '../Component/Icons';
 
 // Set up pdfjs worker
 pdfjs.GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjs.version}/pdf.worker.js`;
@@ -51,6 +52,18 @@ export default function MyProfile() {
   },[user]);
 
 
+  const handleDownload = (pdfBuffer) => {
+    const linkSource = `data:application/pdf;base64,${pdfBuffer}`;
+    const downloadLink = document.createElement("a");
+    const fileName = "certificate.pdf";
+
+    downloadLink.href = linkSource;
+    downloadLink.download = fileName;
+    downloadLink.click();
+
+  }
+
+
   return (
     <>
 
@@ -61,7 +74,7 @@ export default function MyProfile() {
       <div className="flex max-md:flex-col">
         <div className='w-1/4 h-full my-4 mr-4 basis-1/4'>
           <div className='border-slate-700 border-b-2 p-3 bg-slate-600 text-white rounded-tr-md hover:bg-slate-800 cursor-pointer'>Profile</div>
-          <div className='border-slate-700 border-b-2 p-3 bg-slate-600 text-white hover:bg-slate-800 cursor-pointer'>Edit Profile</div>
+          {/* <div className='border-slate-700 border-b-2 p-3 bg-slate-600 text-white hover:bg-slate-800 cursor-pointer'>Edit Profile</div> */}
           <div className='border-slate-700 border-b-2 p-3 bg-slate-600 text-white rounded-br-md hover:bg-slate-800 cursor-pointer' onClick={()=>{logout()}}>Logout</div>
         </div>
         <div className=' rounded-l-lg sm:w-8  lg:w-full my-4 basis-3/4 bg-slate-700'>
@@ -95,6 +108,7 @@ export default function MyProfile() {
 { pdfBuffers.length > 0 ?  
         pdfBuffers.map((pdfBuffer, index) => (
               <div key={index} className='my-2'>
+                <div className='cursor-pointer inline-block' onClick={()=>{handleDownload(pdfBuffer)}}><DownloadIcon/></div>
                 <Document
                   file={{ data: atob(pdfBuffer) }} // Provide an object with the PDF data
                   onLoadSuccess={() => console.log('PDF loaded')}

@@ -4,6 +4,7 @@ import { MdLogout } from "react-icons/md";
 import clsx from 'clsx';
 import { useLogout } from '../hooks/useLogout';
 import { Link } from 'react-router-dom';
+import { PersonIcon } from './Icons';
 
 export default function Profile(props) {
     const [isOPen,setIsOpen] = useState(false);
@@ -13,7 +14,7 @@ export default function Profile(props) {
   return (
     <>
     <div className="flex relative">
-        <p className="text-center h-10 w-10 rounded-full ring-offset-1 ring-1 ring-white bg-slate-700 py-2 cursor-pointer max-sm:absolute max-sm:-top-16 max-sm:left-2 z-0" onClick={()=>{setIsOpen(!isOPen)}}>A</p>
+        <p className="text-center h-10 w-10 rounded-full ring-offset-1 ring-1 ring-white bg-slate-700 py-2 cursor-pointer max-sm:absolute max-sm:-top-16 max-sm:left-2 z-0" onClick={()=>{setIsOpen(!isOPen)}}><PersonIcon/></p>
         <div className={styleClass}>
             <div className="bg-slate-700 text-white text-left">
                 <Link className="text-lg block border-b-2 p-2 cursor-pointer hover:bg-slate-800" to={"/my-profile"}>

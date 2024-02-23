@@ -1,13 +1,15 @@
-import React from 'react';
+import React , {useState} from 'react';
 import { useSignup } from '../hooks/useSignup';
 import { useAuthContext } from '../hooks/useAuthContext';
 import { Navigate } from 'react-router-dom';
+import { OpenEyeIcon, ClosedEyeIcon } from './Icons';
 
 
 export default function SignUp() {
 
 	const {signup,error,isLoading} = useSignup();
 	const {user} = useAuthContext();
+	const [isHidePassword, setIsHidePassword] = useState(true);
 
 
 	  const handleSignupUser = async(e)=>{
@@ -26,6 +28,16 @@ export default function SignUp() {
 		e.target.email.value = '';
 		e.target.password.value = '';
 
+	  }
+
+	  const handlePasswordHide = ()=>{
+		setIsHidePassword(!isHidePassword);
+		if(isHidePassword){
+		  document.getElementById('password').setAttribute('type','text');
+		}
+		else{
+		  document.getElementById('password').setAttribute('type','password');
+		} 
 	  }
 
   return (
@@ -65,7 +77,7 @@ export default function SignUp() {
     							<label htmlFor="email" className="absolute left-0 -top-3.5  text-white text-sm peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-440 peer-placeholder-shown:top-2 transition-all peer-focus:-top-3.5 peer-focus:text-gray-200 peer-focus:text-sm">Email Address</label>
     						</div>
     						<div className="relative">
-    							<input autoComplete="off" id="password" name="password" type="password" className="peer placeholder-transparent my-4 h-10 w-full bg-slate-700 border-b-2 border-slate-950 text-gray-200 focus:outline-none focus:borer-rose-600" placeholder="Password" />
+    							<input autoComplete="off" id="password" name="password" type="password" className="peer placeholder-transparent my-4 h-10 w-full bg-slate-700 border-b-2 border-slate-950 text-gray-200 focus:outline-none focus:borer-rose-600" placeholder="Password" /><div className='inline-block cursor-pointer absolute top-4 right-0' onClick={handlePasswordHide}>{isHidePassword?<ClosedEyeIcon/>:<OpenEyeIcon></OpenEyeIcon>}</div>
     							<label htmlFor="password" className="absolute left-0 -top-3.5  text-white text-sm peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-440 peer-placeholder-shown:top-2 transition-all peer-focus:-top-3.5 peer-focus:text-gray-200 peer-focus:text-sm">Password</label>
     						</div>
     						<div className="relative">
