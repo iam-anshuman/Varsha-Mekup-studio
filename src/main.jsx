@@ -1,6 +1,6 @@
-import React from 'react'
-import ReactDOM from 'react-dom/client'
-import App from './App.jsx'
+import React from 'react';
+import ReactDOM from 'react-dom/client';
+import App from './App.jsx';
 import './index.css';
 import { AuthContextProvider } from './Context/AuthContext.jsx';
 import { AdminAuthProvider } from './Context/AdminAuthContext.jsx';
@@ -16,4 +16,4 @@ ReactDOM.createRoot(document.getElementById('root')).render(
       </AdminAuthProvider>
     </AuthContextProvider>
   </React.StrictMode>,
-)
+);

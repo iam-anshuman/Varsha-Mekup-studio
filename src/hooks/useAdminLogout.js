@@ -1,12 +1,12 @@
-import { useAdminAuthHook } from "./useAdminAuthHook";
+import { useAdminAuthHook } from './useAdminAuthHook';
 
-export function useAdminLogout(){
-    const {dispatch} = useAdminAuthHook();
+export function useAdminLogout() {
+  const { dispatch } = useAdminAuthHook();
 
-    const logout = () => {
-        dispatch({type:"LOGOUT"});
-        localStorage.removeItem("adminToken");
-    }
+  const logout = () => {
+    dispatch({ type: 'LOGOUT' });
+    localStorage.removeItem('adminToken');
+  };
 
-    return {logout};
+  return { logout };
 }
