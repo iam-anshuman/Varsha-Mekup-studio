@@ -16,7 +16,6 @@ export default function MyProfile() {
   const { logout } = useLogout();
 
   useEffect(() => {
-    console.log('User State'.user);
     if (!user) {
       alert('You are not logged in, please login to continue.');
     }
@@ -50,11 +49,12 @@ export default function MyProfile() {
     const linkSource = `data:application/pdf;base64,${pdfBuffer}`;
     const downloadLink = document.createElement('a');
     const fileName = 'certificate.pdf';
-
+    
     downloadLink.href = linkSource;
     downloadLink.download = fileName;
     downloadLink.click();
   };
+
 
   return (
     <>
@@ -142,8 +142,9 @@ export default function MyProfile() {
                               <DownloadIcon />
                             </div>
                             <Document
-                              file={{ data: atob(pdfBuffer) }} // Provide an object with the PDF data
+                              file={{data:`application/pdf;base64,${atob(pdfBuffer)}`}} // Provide an object with the PDF data
                               onLoadSuccess={() => console.log('PDF loaded')}
+                              onAbort={() => console.log('PDF aborted')}
                               className={'w-1/2 h-1/2 mx-auto'}
                             >
                               <Page
