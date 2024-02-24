@@ -90,14 +90,27 @@ export default function Login() {
                             Password
                           </label>
                         </div>
+
+{                       isLoading ? 
                         <div className="relative">
                           <button
                             type="submit"
-                            className="bg-indigo-500 hover:bg-indigo-600 text-white rounded-md px-2 py-1"
+                            className="bg-indigo-300 hover:bg-indigo-600 text-white rounded-md px-2 py-1"
+                            disabled
                           >
                             Login
                           </button>
                         </div>
+                        :
+                        <div className="relative">
+                        <button
+                          type="submit"
+                          className="bg-indigo-500 hover:bg-indigo-600 text-white rounded-md px-2 py-1"
+                        >
+                          Login
+                        </button>
+                      </div>
+}
                         <Link
                           className="text-white cursor-pointer hover:text-slate-300 my-2"
                           to={'/forget-password'}

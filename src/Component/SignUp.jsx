@@ -147,14 +147,26 @@ export default function SignUp() {
                             Password
                           </label>
                         </div>
+{ isLoading ?
                         <div className="relative">
                           <button
                             type="submit"
-                            className="bg-indigo-500 hover:bg-indigo-600 text-white rounded-md px-2 py-1 my-4"
+                            className="bg-indigo-300  text-white rounded-md px-2 py-1 my-4"
+                            disabled
                           >
                             Signup
                           </button>
                         </div>
+                        :
+                        <div className="relative">
+                        <button
+                          type="submit"
+                          className="bg-indigo-500 hover:bg-indigo-600 text-white rounded-md px-2 py-1 my-4"
+                        >
+                          Signup
+                        </button>
+                      </div>
+}
                       </form>
                     </div>
                   </div>

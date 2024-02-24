@@ -10,6 +10,7 @@ export default function Contact() {
   });
   const [toasterMessage, setToasterMessage] = useState('');
   const [toasterType, setToasterType] = useState('');
+  const [isLoading, setIsLoading] = useState(false);
 
   const handleUserContacted = async () => {
     if (
@@ -21,33 +22,43 @@ export default function Contact() {
       alert('Please fill all the fields');
       return;
     }
-    const response = await fetch('http://localhost:4000/user/userContacted', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(userContact),
-    });
-    const data = await response.json();
-    if (response.status === 201) {
-      setToasterMessage(data.message);
-      setToasterType('success');
-      setUserContact({
-        name: '',
-        phone: '',
-        course: '',
-        message: '',
+
+    try {
+      setIsLoading(true);
+      const response = await fetch('http://localhost:4000/user/userContacted', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(userContact),
       });
-    } else {
-      setUserContact({
-        name: '',
-        phone: '',
-        course: '',
-        message: '',
-      });
-      setToasterMessage(data.message);
-      setToasterType('danger');
+      const data = await response.json();
+      if (response.status === 201) {
+        setIsLoading(false);
+        setToasterMessage(data.message);
+        setToasterType('success');
+        setUserContact({
+          name: '',
+          phone: '',
+          course: '',
+          message: '',
+        });
+      } else {
+        setIsLoading(false);
+        setUserContact({
+          name: '',
+          phone: '',
+          course: '',
+          message: '',
+        });
+        setToasterMessage(data.message);
+        setToasterType('danger');
+      }
+    } catch (error) {
+      setIsLoading(false);
+      console.log(error);
     }
+
   };
 
   const handleInputChange = e => {
