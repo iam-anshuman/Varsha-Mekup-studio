@@ -46,6 +46,7 @@ export default function ForgetPassword() {
                       Forget Password
                     </h1>
                     <p>Enter email to reset your password</p>
+                    <p>You may receive reset link mail in your spam folder</p>
                   </div>
                   <div className="divide-y divide-gray-200">
                     <form onSubmit={handleForgetPassword}>

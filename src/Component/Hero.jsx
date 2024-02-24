@@ -36,7 +36,7 @@ export default function Hero() {
             <img
               className="sm:mx-32 object-cover object-center scale-125 brightness-75 contrast-150 "
               alt="hero"
-              src="/makeup-girl_91.png"
+              src="/makeup-girl.png"
             />
           </div>
         </div>
