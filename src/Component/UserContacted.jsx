@@ -42,7 +42,7 @@ export default function UserContacted() {
     <div className='h-[80rem] basis-3/4 bg-slate-700 ml-2 p-4 overflow-y-scroll'>
 <div className='border-2 border-white rounded-xl shadow-xl shadow-black '>
     <div className='text-3xl text-white font-bold my-2  text-center'>User Contacted</div>
-        {toasterMessage && <Toaster toasterMessage={toasterMessage} setToasterMessage={setToasterMessage} type={"danger"}/>}
+        {toasterMessage && <Toaster toasterMessage={toasterMessage} setToasterMessage={setToasterMessage} toasterType={"danger"}/>}
 
 <div  className='flex flex-wrap justify-around mx-5 my-10 '>
         {       

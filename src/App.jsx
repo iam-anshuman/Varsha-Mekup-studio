@@ -15,6 +15,7 @@ import Users from "./Component/Users";
 import UserContacted from "./Component/UserContacted";
 import AdminUserServices from "./Component/AdminUserServices";
 import AdminIssuedCertificate from "./Component/AdminIssuedCertificates";
+import ForgetPassword from "./Component/ForgetPassword";
 
 const router = createBrowserRouter([
   {
@@ -36,6 +37,10 @@ const router = createBrowserRouter([
       {
         path:"/login",
         element:<LoginPage/>
+      },
+      {
+        path:"/forget-password",
+        element:<ForgetPassword/>
       },
       {
         path:"/my-profile",

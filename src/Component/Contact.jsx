@@ -1,4 +1,5 @@
 import React,{useState} from 'react'
+import Toaster from './Toaster';
 
 export default function Contact() {
   const [userContact,setUserContact] = useState({
@@ -7,6 +8,8 @@ export default function Contact() {
     course:"",
     message:""
   });
+  const [toasterMessage,setToasterMessage] = useState('');
+  const [toasterType,setToasterType] = useState('');
 
   const handleUserContacted = async () => {
     if(userContact.name === "" || userContact.phone === "" || userContact.course === "" || userContact.message === ""){
@@ -22,7 +25,8 @@ export default function Contact() {
     });
     const data = await response.json();
     if(response.status === 201){
-      alert(data.message);
+      setToasterMessage(data.message);
+      setToasterType('success');
       setUserContact({
         name:"",
         phone:"",
@@ -37,7 +41,8 @@ export default function Contact() {
         course:"",
         message:""
       });
-      alert(data.message);
+      setToasterMessage(data.message);
+      setToasterType('danger');
     }
 
   }
@@ -60,19 +65,20 @@ export default function Contact() {
   return (
     <>
     <section id='contactUs' className="text-gray-400 bg-gray-900 body-font relative">
+    {toasterMessage && <Toaster toasterMessage={toasterMessage} toasterType={toasterType} setToasterMessage={setToasterMessage} />}
   <div className="container px-5 py-24 mx-auto flex sm:flex-nowrap flex-wrap">
     <div className="lg:w-2/3 md:w-1/2 bg-gray-900 rounded-lg overflow-hidden sm:mr-10 p-10 flex items-end justify-start relative">
-      <iframe width="100%" height="100%" title="map" className="absolute inset-0 grayscale contrast-125 opacity-15" src="https://maps.google.com/maps?width=100%&height=600&hl=en&q=%C4%B0zmir+(My%20Business%20Name)&ie=UTF8&t=&z=14&iwloc=B&output=embed"></iframe>
+      <iframe width="100%" height="100%" title="map" className="absolute inset-0 grayscale contrast-125 opacity-15" src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d220.03277734831778!2d78.75329704260685!3d28.069541754412025!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x39752fc0c9e4d4f3%3A0xb90c04aa82b9980c!2sVarsha%20makeup%20studio%20sahaswan!5e0!3m2!1sen!2sin!4v1708764004068!5m2!1sen!2sin"></iframe>
       <div className="bg-gray-900 relative flex flex-wrap py-6 rounded shadow-md">
         <div className="lg:w-1/2 px-6">
           <h2 className="title-font font-semibold text-white tracking-widest text-xs">ADDRESS</h2>
-          <p className="mt-1">Photo booth tattooed prism, portland taiyaki hoodie neutra typewriter</p>
+          <p className="mt-1">State Bank Road Sahasban</p>
         </div>
         <div className="lg:w-1/2 px-6 mt-4 lg:mt-0">
           <h2 className="title-font font-semibold text-white tracking-widest text-xs">EMAIL</h2>
-          <a className="text-indigo-400 leading-relaxed">example@email.com</a>
+          <a className="text-indigo-400 leading-relaxed">ranivarsha724@gmail.com</a>
           <h2 className="title-font font-semibold text-white tracking-widest text-xs mt-4">PHONE</h2>
-          <p className="leading-relaxed">123-456-7890</p>
+          <p className="leading-relaxed">+91 9149150282</p>
         </div>
       </div>
     </div>

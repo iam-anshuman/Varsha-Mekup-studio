@@ -1,6 +1,6 @@
 import React,{useState} from 'react';
 import { useLogin } from '../hooks/useLogin';
-import { Navigate, useNavigate } from 'react-router-dom';
+import { Navigate, useNavigate,Link } from 'react-router-dom';
 import { useAuthContext } from '../hooks/useAuthContext';
 import { OpenEyeIcon, ClosedEyeIcon } from './Icons';
 
@@ -63,6 +63,9 @@ export default function Login() {
     							<div className="relative">
     								<button type="submit" className="bg-indigo-500 hover:bg-indigo-600 text-white rounded-md px-2 py-1">Login</button>
     							</div>
+								<Link className='text-white cursor-pointer hover:text-slate-300 my-2' to={"/forget-password"}>
+									<button>Forget Password?</button>
+								</Link>
     						</div>
 						</form>
     				</div>

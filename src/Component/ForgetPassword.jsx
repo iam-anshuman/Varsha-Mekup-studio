@@ -1,0 +1,69 @@
+import React,{useState} from 'react';
+import { Navigate, useNavigate,Link } from 'react-router-dom';
+import { useAuthContext } from '../hooks/useAuthContext';
+import {useForgetPassword} from "../hooks/useForgetPassword";
+import Toaster from "./Toaster"
+
+
+export default function ForgetPassword() {
+	const {user} = useAuthContext();
+	const navigate = useNavigate();
+    const {forgetPassword,error,data,loading} = useForgetPassword();
+    const [toasterMessage,setToasterMessage] = useState('');
+    const [toasterType,setToasterType] = useState('');
+
+
+
+	const handleForgetPassword = async(e)=>{
+		e.preventDefault();
+		const email = e.target.email.value;
+        await forgetPassword(email);
+		data && setToasterMessage(data.message) && setToasterType('success') && navigate('/login');
+		error && setToasterMessage(error.message) && setToasterType('danger');
+		e.target.email.value = '';
+	}
+
+  return (
+    <>
+	{user ? <Navigate to={"/"}/> : 
+    <section className="text-gray-400 bg-gray-900 body-font">
+    <div className="min-h-screen bg-gray-900 py-6 flex flex-col justify-center sm:py-12">
+        {toasterMessage && <Toaster message={toasterMessage} type={toasterType} setToasterMessage={setToasterMessage} />}
+    	<div className="relative py-3 sm:max-w-xl sm:mx-auto">
+    		<div
+    			className="absolute inset-0 bg-gradient-to-r from-blue-300 to-indigo-500 shadow-lg transform -skew-y-6 sm:skew-y-0 sm:-rotate-6 sm:rounded-3xl">
+    		</div>
+    		<div className="relative px-4 py-10 bg-slate-700 shadow-lg sm:rounded-3xl sm:p-20">
+    			<div className="max-w-md mx-auto">
+    				<div>
+    					<h1 className="text-2xl font-semibold text-white">Forget Password</h1>
+                        <p>Enter email to reset your password</p>
+    				</div>
+    				<div className="divide-y divide-gray-200">
+						<form  onSubmit={handleForgetPassword}>
+    						<div className="py-8 text-base leading-6 space-y-4 text-gray-700 sm:text-lg sm:leading-7">
+    							<div className="relative">
+    								<input autoComplete="off" id="email" name="email" type="text" className="peer placeholder-transparent h-10 w-full border-b-2 bg-slate-700 border-slate-800 text-gray-200 focus:outline-none focus:borer-rose-600" placeholder="Email address" />
+    								<label htmlFor="email" className="absolute left-0 -top-3.5  text-white text-sm peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-440 peer-placeholder-shown:top-2 transition-all peer-focus:-top-3.5 peer-focus:text-gray-200 peer-focus:text-sm">Email Address</label>
+    							</div>
+                                {loading?
+                                    	<div className="relative">
+                                            <button type="submit" className="bg-indigo-500 hover:bg-indigo-600 text-white rounded-md px-2 py-1" disabled>Reset Password</button>
+                                        </div>
+                                        :
+    							<div className="relative">
+    								<button type="submit" className="bg-indigo-500 hover:bg-indigo-600 text-white rounded-md px-2 py-1">Reset Password</button>
+    							</div>
+                                }
+    						</div>
+						</form>
+    				</div>
+    			</div>
+    		</div>
+    	</div>
+    </div>
+    </section>
+	}
+    </>
+  )
+}
