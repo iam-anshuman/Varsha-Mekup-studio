@@ -27,5 +27,5 @@ jobs:
       - name: Delete the old Container
         run: docker rm -f varsha-mekup-studio-fronend
       - name: Run the Docker container
-        run: docker run -d -p 4000:4000 --name varsha-mekup-studio-frontend anshumant72/varsha-mekup-studio-frontend:latest
+        run: docker run -d -p 5173:80 --name varsha-mekup-studio-frontend anshumant72/varsha-mekup-studio-frontend:latest
 
