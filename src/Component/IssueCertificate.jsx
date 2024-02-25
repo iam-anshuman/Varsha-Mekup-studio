@@ -4,7 +4,7 @@ import { useAdminAuthHook } from '../hooks/useAdminAuthHook';
 import { Navigate } from 'react-router-dom';
 
 export default function IssueCertificate() {
-  const { createCertificate } = useCreateCertificate();
+  const { createCertificate,loading,error } = useCreateCertificate();
   const [isValidatedImage, setIsValidatedImage] = useState(false);
   const { state } = useAdminAuthHook();
 
@@ -269,14 +269,26 @@ export default function IssueCertificate() {
                         className="w-full bg-gray-800 rounded border border-gray-700 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-900 text-base outline-none text-gray-100 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out"
                       />
                     </div>
+{ loading ?
                     <div className="relative">
                       <button
                         type="submit"
-                        className="bg-indigo-500 hover:bg-indigo-600 text-white rounded-md px-2 py-1"
+                        className="bg-indigo-400  text-white rounded-md px-2 py-1"
+                        disabled
                       >
                         Create Certificate
                       </button>
                     </div>
+                    :
+                    <div className="relative">
+                    <button
+                      type="submit"
+                      className="bg-indigo-500 hover:bg-indigo-600 text-white rounded-md px-2 py-1"
+                    >
+                      Create Certificate
+                    </button>
+                  </div>
+}
                   </div>
                 </form>
               </div>
