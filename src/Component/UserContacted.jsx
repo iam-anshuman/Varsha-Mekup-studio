@@ -12,7 +12,7 @@ export default function UserContacted() {
   useEffect(() => {
     async function fetchUsersContacted(index) {
       const response = await fetch(
-        `http://localhost:4000/admin/api/getUserContacted?page=${index}`,
+        `https://43.205.188.10:4000/admin/api/getUserContacted?page=${index}`,
         {
           method: 'GET',
           headers: {

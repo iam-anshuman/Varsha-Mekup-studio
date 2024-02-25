@@ -15,7 +15,7 @@ export function useLogin() {
     }
 
     try {
-      const response = await fetch('http://localhost:4000/auth/login', {
+      const response = await fetch('https://43.205.188.10:4000/auth/login', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

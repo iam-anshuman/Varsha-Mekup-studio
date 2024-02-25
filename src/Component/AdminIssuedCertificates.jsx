@@ -14,7 +14,7 @@ export default function AdminIssuedCertificate() {
   useEffect(() => {
     async function fetchCertificares(index) {
       const response = await fetch(
-        `http://localhost:4000/admin/api/getCertificateDetails?page=${index}`,
+        `https://43.205.188.10:4000/admin/api/getCertificateDetails?page=${index}`,
         {
           method: 'GET',
           headers: {
@@ -43,7 +43,7 @@ export default function AdminIssuedCertificate() {
   const handleDownload = async id => {
     try {
       const response = await fetch(
-        `http://localhost:4000/admin/api/downloadCertificate/${id}`,
+        `https://43.205.188.10:4000/admin/api/downloadCertificate/${id}`,
         {
           method: 'GET',
           headers: {
@@ -62,7 +62,7 @@ export default function AdminIssuedCertificate() {
   const handleDelete = async id => {
     try {
       const response = await fetch(
-        `http://localhost:4000/admin/api/deleteCertificate/${id}`,
+        `https://43.205.188.10:4000/admin/api/deleteCertificate/${id}`,
         {
           method: 'DELETE',
           headers: {

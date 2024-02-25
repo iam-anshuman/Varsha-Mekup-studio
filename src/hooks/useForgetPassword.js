@@ -8,7 +8,7 @@ export function useForgetPassword() {
     try {
       setLoading(true);
       const response = await fetch(
-        'http://localhost:4000/auth/forget-password',
+        'https://43.205.188.10:4000/auth/forget-password',
         {
           method: 'POST',
           headers: {

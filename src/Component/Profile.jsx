@@ -26,7 +26,7 @@ export default function Profile(props) {
     async function fetchData() {
       setLoading(true);
       const userToken = localStorage.getItem('token');
-      const response = await fetch('http://localhost:4000/getDetails/user', {
+      const response = await fetch('https://43.205.188.10:4000/getDetails/user', {
         method: 'GET',
         headers: {
           Authorization: 'Bearer ' + userToken,
