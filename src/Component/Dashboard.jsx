@@ -12,7 +12,7 @@ export default function Dashboard() {
     const token = localStorage.getItem('adminToken');
     async function getDashboard() {
       const response = await fetch(
-        'https://43.205.188.10:4000/admin/api/dashboard',
+        'http://43.205.188.10:4000/admin/api/dashboard',
         {
           method: 'GET',
           headers: {

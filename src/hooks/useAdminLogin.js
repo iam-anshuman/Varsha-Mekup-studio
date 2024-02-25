@@ -10,7 +10,7 @@ export function useAdminLogin() {
     try {
       // login logic
       setLoading(true);
-      const response = await fetch('https://43.205.188.10:4000/admin/auth/login', {
+      const response = await fetch('http://43.205.188.10:4000/admin/auth/login', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

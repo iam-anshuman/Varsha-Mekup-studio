@@ -12,7 +12,7 @@ export default function AdminUserServices() {
   useEffect(() => {
     async function fetchUserServices(index) {
       const response = await fetch(
-        `https://43.205.188.10:4000/admin/api/getUserServices?page=${index}`,
+        `http://43.205.188.10:4000/admin/api/getUserServices?page=${index}`,
         {
           method: 'GET',
           headers: {
