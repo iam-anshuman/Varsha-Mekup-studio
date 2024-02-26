@@ -26,7 +26,7 @@ export default function Profile(props) {
     async function fetchData() {
       setLoading(true);
       const userToken = localStorage.getItem('token');
-      const response = await fetch('http://43.205.188.10:4000/getDetails/user', {
+      const response = await fetch('https://api.varshamekup.in/getDetails/user', {
         method: 'GET',
         headers: {
           Authorization: 'Bearer ' + userToken,

@@ -25,7 +25,7 @@ export default function Contact() {
 
     try {
       setIsLoading(true);
-      const response = await fetch('http://43.205.188.10:4000/user/userContacted', {
+      const response = await fetch('https://api.varshamekup.in/user/userContacted', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -57,6 +57,7 @@ export default function Contact() {
     } catch (error) {
       setIsLoading(false);
       console.log(error);
+      alert('Something went wrong');
     }
 
   };

@@ -15,7 +15,7 @@ export function useSignup() {
     }
 
     try {
-      const response = await fetch('http://43.205.188.10:4000/auth/signup', {
+      const response = await fetch('https://api.varshamekup.in/auth/signup', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

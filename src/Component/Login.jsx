@@ -95,7 +95,7 @@ export default function Login() {
                         <div className="relative">
                           <button
                             type="submit"
-                            className="bg-indigo-300 hover:bg-indigo-600 text-white rounded-md px-2 py-1"
+                            className="bg-indigo-300  text-white rounded-md px-2 py-1"
                             disabled
                           >
                             Login

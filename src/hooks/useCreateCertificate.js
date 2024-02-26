@@ -16,7 +16,7 @@ export function useCreateCertificate() {
 
       setLoading(true);
       const response = await fetch(
-        'http://43.205.188.10:4000/admin/api/createpdf',
+        'https://api.varshamekup.in/admin/api/createpdf',
         {
           method: 'POST',
           headers: {

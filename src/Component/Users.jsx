@@ -12,7 +12,7 @@ export default function Users() {
   useEffect(() => {
     async function fetchUsers(index) {
       const response = await fetch(
-        `http://43.205.188.10:4000/admin/api/getUsers?page=${index}`,
+        `https://api.varshamekup.in/admin/api/getUsers?page=${index}`,
         {
           method: 'GET',
           headers: {

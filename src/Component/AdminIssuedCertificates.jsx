@@ -14,7 +14,7 @@ export default function AdminIssuedCertificate() {
   useEffect(() => {
     async function fetchCertificares(index) {
       const response = await fetch(
-        `http://43.205.188.10:4000/admin/api/getCertificateDetails?page=${index}`,
+        `https://api.varshamekup.in/admin/api/getCertificateDetails?page=${index}`,
         {
           method: 'GET',
           headers: {
@@ -43,12 +43,11 @@ export default function AdminIssuedCertificate() {
   const handleDownload = async id => {
     try {
       const response = await fetch(
-        `http://43.205.188.10:4000/admin/api/downloadCertificate/${id}`,
+        `https://api.varshamekup.in/admin/api/downloadCertificate/${id}`,
         {
           method: 'GET',
           headers: {
             Authorization: `Bearer ${state.adminToken}`,
-            'Response-Type': 'blob',
           },
         },
       );
@@ -62,7 +61,7 @@ export default function AdminIssuedCertificate() {
   const handleDelete = async id => {
     try {
       const response = await fetch(
-        `http://43.205.188.10:4000/admin/api/deleteCertificate/${id}`,
+        `https://api.varshamekup.in/admin/api/deleteCertificate/${id}`,
         {
           method: 'DELETE',
           headers: {

@@ -15,7 +15,7 @@ export default function Modal({ open, setIsOpen }) {
 
     try{
       setLoading(true);
-      const response = await fetch('http://43.205.188.10:4000/user/bookNow', {
+      const response = await fetch('https://api.varshamekup.in/user/bookNow', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
