@@ -49,7 +49,7 @@ export default function Profile(props) {
   console.log("Student Information",studentInformation);
 
   const styleClass = clsx(
-    `absolute w-48 border-blue-50 border-2 border-t-4  top-[4.7rem] -left-16 max-md:-left-2 max-md:top-[1.8rem] rounded-md z-10 duration-300 ease-in-out ${isOPen ? 'scale-100' : 'scale-0'}`,
+    `absolute w-48 border-blue-50 border-2 border-t-4  top-[4.7rem] right-0 max-md:-left-2 max-md:top-[1.8rem] rounded-md z-10 duration-300 ease-in-out ${isOPen ? 'scale-100' : 'scale-0'}`,
   );
   return (
     <>
