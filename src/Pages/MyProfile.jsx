@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useAuthContext } from '../hooks/useAuthContext';
 import { Document, Page, pdfjs } from 'react-pdf';
-import { useLogout } from '../hooks/useLogout';
 import { DownloadIcon } from '../Component/Icons';
 
 // Set up pdfjs worker
@@ -13,7 +12,6 @@ export default function MyProfile() {
   const [certificateDetails, setCertificateDetails] = useState([]);
   const [loading, setLoading] = useState(false);
   const [pdfBuffers, setPdfBuffers] = useState([]);
-  const { logout } = useLogout();
 
   useEffect(() => {
     if (!user) {
@@ -55,75 +53,44 @@ export default function MyProfile() {
     downloadLink.click();
   };
 
-
+  console.log(studentInformation)
   return (
     <>
       {loading
         ? loading
         : user &&
           studentInformation && (
-            <div className="bg-slate-400 h-full text-white">
+          <div className="bg-slate-400 min-[height:calc(100vh - 95px)] text-white">
               <div className="flex max-md:flex-col">
-                <div className="w-1/4 h-full my-4 mr-4 basis-1/4">
-                  <div className="border-slate-700 border-b-2 p-3 bg-slate-600 text-white rounded-tr-md hover:bg-slate-800 cursor-pointer">
-                    Profile
-                  </div>
-                  {/* <div className='border-slate-700 border-b-2 p-3 bg-slate-600 text-white hover:bg-slate-800 cursor-pointer'>Edit Profile</div> */}
-                  <div
-                    className="border-slate-700 border-b-2 p-3 bg-slate-600 text-white rounded-br-md hover:bg-slate-800 cursor-pointer"
-                    onClick={() => {
-                      logout();
-                    }}
-                  >
-                    Logout
-                  </div>
-                </div>
-                <div className=" rounded-l-lg sm:w-8  lg:w-full my-4 basis-3/4 bg-slate-700">
-                  <div className="flex">
-                    <div className="w-1/3 border-b-2 border-white px-10 py-4 my-2 basis-1/3">
-                      {/* Avatar section */}
-                      <div className="m-2 lg:w-full">
-                        <p className="text-center h-10 w-10 text-base lg:h-48 lg:w-48 lg:text-6xl rounded-full ring-offset-1 ring-1 ring-white bg-slate-700 p-2 lg:p-12 my-2 cursor-pointer">
-                          {studentInformation.email &&
-                            studentInformation.email.charAt(0).toUpperCase()}
-                        </p>
-                        <div className="w-24 text-sm break-words lg:w-full lg:text-xl lg:font-bold">
-                          {studentInformation.email}
+                <div className=" w-full bg-slate-700 block md:flex">
+                  <div className="Card m-4 md:basis-1/4">
+                    <div className="w-full max-w-sm bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
+                        <div className="flex flex-col items-center pb-10 my-2">
+                            <div className="w-24 h-24 mb-3 rounded-full shadow-black relative shadow-md">
+                              <div className='absolute text-4xl left-1/3 top-1/4'>
+                                 {studentInformation.email && studentInformation.email.charAt(0).toUpperCase()}
+                              </div>
+                            </div>
+                            <h5 className="mb-1 text-xl font-medium text-gray-900 dark:text-white my-1">{studentInformation.firstName+" "+studentInformation.lastName}</h5>
+                            <span className="text-sm text-gray-500 dark:text-gray-400 my-1">{studentInformation.email}</span>
+                            <span className="text-sm text-gray-500 dark:text-gray-400 my-1">{studentInformation.phone}</span>
                         </div>
-                      </div>
-                    </div>
-                    {/* Profile Detail */}
-                    <div className="border-l-2 border-b-2 rounded-bl-lg border-white mx-4 basis-3/4">
-                      <div className="text-xl lg:text-4xl m-4">Name</div>
-                      <div className="text-md lg:text-2xl  m-4">
-                        {studentInformation.firstName +
-                          ' ' +
-                          studentInformation.lastName}
-                      </div>
-                      <div className="text-xl lg:text-4xl m-4">Phone</div>
-                      <div className="text-md lg:text-2xl  m-4">
-                        {studentInformation.phone}
-                      </div>
-                      <div className="text-md lg:text-4xl m-4">
-                        No. Of Certificates Issued
-                      </div>
-                      <div className="text-xl lg:text-2xl  m-4">
-                        {certificateDetails.length}
-                      </div>
                     </div>
                   </div>
-                  <div className="flex flex-col mx-2">
+                  <div className="flex flex-col mx-2 md:basis-3/4">
+                    <h5 className='text-2xl p-2 font-bold'>Course you have done</h5>
                     {certificateDetails.map((certificate, index) => {
                       return (
                         <div
-                          key={index}
-                          className="border-b-2 border-white p-2 my-2"
+                        key={index}
+                        className="border-b-2 border-white p-2 my-2"
                         >
-                          <div className="text-xl font-bold">
-                            {certificate.course_name}
-                          </div>
-                          <div className="text-base">
-                            {certificate.course_duration}
+                          <span className='text-2xl'>{index+1}. </span>
+                          <div className="text-xl font-bold inline-block">
+                            {certificate.course_name} 
+                            <span>
+                            &nbsp;-&nbsp;{certificate.course_duration}
+                            </span>
                           </div>
                         </div>
                       );
@@ -139,13 +106,16 @@ export default function MyProfile() {
                                 handleDownload(pdfBuffer);
                               }}
                             >
+                              
                               <DownloadIcon />
                             </div>
                             <Document
                               file={{data:`application/pdf;base64,${atob(pdfBuffer)}`}} // Provide an object with the PDF data
                               onLoadSuccess={() => console.log('PDF loaded')}
                               onAbort={() => console.log('PDF aborted')}
-                              className={'w-1/2 h-1/2 mx-auto'}
+                              className={'w-20'}
+                              witdh={100}
+                              scale={0.5}
                             >
                               <Page
                                 pageNumber={1}

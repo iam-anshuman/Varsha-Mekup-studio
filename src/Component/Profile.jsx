@@ -67,12 +67,15 @@ export default function Profile(props) {
             <Link
               className="text-lg block border-b-2 p-2 cursor-pointer hover:bg-slate-800"
               to={'/my-profile'}
+              onClick={() => {setIsOpen(false)}}
+
             >
               <IoIosPerson className="inline mb-1 mr-2" size={25} />
               My Profile
             </Link>
 {studentInformation.role ==="admin"  && <Link className="text-lg block border-b-2 p-2 cursor-pointer hover:bg-slate-800"
                    to={"admins-panel"}
+                   onClick={() => {setIsOpen(false)}}
             >
               <IoIosPerson className="inline mb-1 mr-2" size={25} />
               Admin Panel
@@ -81,6 +84,7 @@ export default function Profile(props) {
               className="text-lg p-2 cursor-pointer hover:bg-slate-800"
               onClick={() => {
                 logout();
+                setIsOpen(false);
               }}
             >
               <MdLogout className="inline mb-1 mr-2" size={25} />
