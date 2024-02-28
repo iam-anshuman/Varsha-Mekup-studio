@@ -80,7 +80,7 @@ export default function AdminIssuedCertificate() {
   return (
     <>
       {state.adminToken ? (
-        <div className="h-[80rem] basis-3/4 bg-slate-700 ml-2 p-4 overflow-y-scroll">
+        <div className="h-[80rem] basis-5/6  md:basis-3/4 bg-slate-700 ml-2 p-4 overflow-y-scroll">
           {toasterMessage && (
             <Toaster
               toasterMessage={toasterMessage}

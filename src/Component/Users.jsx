@@ -52,8 +52,8 @@ export default function Users() {
           <div className="text-white text-6xl text-center underline underline-offset-2">
             USERS
           </div>
-          <div className="w-5/6 my-10 text-white bg-slate-600 rounded-lg shadow-lg shadow-black p-6 mx-auto">
-            <div className="border-2 border-white">
+          <div className="w-5/6 my-10 text-white bg-slate-600  shadow-lg shadow-black mx-auto">
+            <div className="border-2 border-white rounded-sm">
               <div className="relative overflow-x-auto">
                 <table className="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
                   <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">

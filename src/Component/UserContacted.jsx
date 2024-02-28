@@ -92,7 +92,6 @@ export default function UserContacted() {
                     </div>
                   );
                 })}
-            </div>
             <div className="flex justify-center my-5">
               {index === 0 ? (
                 <button
@@ -167,6 +166,7 @@ export default function UserContacted() {
                   />
                 </svg>
               </button>
+            </div>
             </div>
           </div>
         </div>

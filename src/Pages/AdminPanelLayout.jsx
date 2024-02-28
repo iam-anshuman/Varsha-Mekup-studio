@@ -15,7 +15,7 @@ export default function AdminPanelLayout() {
   return (
     <>
       <div className="flex">
-        <div className="h-[80rem] basis-1/6 md:basis-1/4 bg-slate-700  divide-y-2 divide-slate-400">
+        <div className="h-[80rem] basis-1/6 md:basis-1/4 bg-slate-700  pr-5 divide-y-2 divide-slate-400">
           {/* Admin Navbar */}
           <div className="brand my-6">
             <Link
@@ -27,23 +27,23 @@ export default function AdminPanelLayout() {
                 <div className="mx-2 p-0">Mekup</div>
                 <div className="mx-2 p-0">Studio</div>
               </span>
-              <div className="mx-2 text-4xl font-mono mt-8">Admin Panel</div>
+              <div className="mx-2 text-base md:text-4xl font-mono mt-8">Admin Panel</div>
             </Link>
           </div>
           <div className="p-2 hover:bg-slate-800 cursor-pointer">
-            <Link to={'/admins-panel'} className="text-white text-2xl">
+            <Link to={'/admins-panel'} className="text-white text-sm md:text-2xl">
               Dashboard
             </Link>
           </div>
           <div className="p-2 hover:bg-slate-800 cursor-pointer">
-            <Link to={'/admins-panel/users'} className="text-white text-2xl ">
+            <Link to={'/admins-panel/users'} className="text-white text-sm md:text-2xl ">
               Users
             </Link>
           </div>
           <div className="p-2 hover:bg-slate-800 cursor-pointer">
             <Link
               to={'/admins-panel/issue-certificate'}
-              className="text-white text-2xl "
+              className="text-white text-sm md:text-2xl "
             >
               Issue Certificates
             </Link>
@@ -51,7 +51,7 @@ export default function AdminPanelLayout() {
           <div className="p-2 hover:bg-slate-800 cursor-pointer">
             <Link
               to={'/admins-panel/certificates-issued'}
-              className="text-white text-2xl "
+              className="text-white text-sm md:text-2xl "
             >
               Certificates
             </Link>
@@ -59,7 +59,7 @@ export default function AdminPanelLayout() {
           <div className="p-2 hover:bg-slate-800 cursor-pointer">
             <Link
               to={'/admins-panel/user-contacted'}
-              className="text-white text-2xl "
+              className="text-white text-sm md:text-2xl"
             >
               User Contacted
             </Link>
@@ -67,7 +67,7 @@ export default function AdminPanelLayout() {
           <div className="p-2 hover:bg-slate-800 cursor-pointer">
             <Link
               to={'/admins-panel/user-service'}
-              className="text-white text-2xl "
+              className="text-white text-sm md:text-2xl"
             >
               User Service
             </Link>
@@ -77,11 +77,11 @@ export default function AdminPanelLayout() {
               className="p-2 hover:bg-slate-800 cursor-pointer"
               onClick={handleLogout}
             >
-              <Link className="text-white text-2xl ">Log Out</Link>
+              <Link className="text-white text-sm md:text-2xl">Log Out</Link>
             </div>
           ) : (
             <div className="p-2 hover:bg-slate-800 cursor-pointer">
-              <Link to={'/admins-panel/login'} className="text-white text-2xl ">
+              <Link to={'/admins-panel/login'} className="text-white text-sm md:text-2xl">
                 Login
               </Link>
             </div>
