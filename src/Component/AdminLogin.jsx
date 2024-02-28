@@ -68,14 +68,26 @@ export default function AdminLogin() {
                             Password
                           </label>
                         </div>
-                        <div className="relative">
-                          <button
-                            type="submit"
-                            className="bg-indigo-500 hover:bg-indigo-600 text-white rounded-md px-2 py-1"
+{
+loading ?
+                          <div className="relative">
+                          <button disabled
+                            className="bg-indigo-400 text-white rounded-md px-2 py-1"
                           >
                             Login
                           </button>
-                        </div>
+                          </div>  
+                          :
+                          <div className="relative">
+                          <button
+                          type="submit"
+                          className="bg-indigo-500 hover:bg-indigo-600 text-white rounded-md px-2 py-1"
+                          >
+                          Login
+                          </button>
+                          </div>  
+}
+
                       </div>
                     </form>
                   </div>

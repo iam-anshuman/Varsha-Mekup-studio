@@ -51,6 +51,7 @@ export default function MyProfile() {
     downloadLink.href = linkSource;
     downloadLink.download = fileName;
     downloadLink.click();
+    window.URL.revokeObjectURL(linkSource);
   };
 
   console.log(studentInformation)
