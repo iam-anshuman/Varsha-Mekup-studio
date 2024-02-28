@@ -3,13 +3,13 @@ import { useAdminAuthHook } from '../hooks/useAdminAuthHook';
 import { Navigate } from 'react-router-dom';
 import Toaster from './Toaster';
 import { DeleteIcon, DownloadIcon } from './Icons';
-import download from 'downloadjs';
 import { useCertificateContext } from '../Context/CertificateContext';
 
 export default function AdminIssuedCertificate() {
   const { state } = useAdminAuthHook();
   const { certificates, index, certificateDispatch } = useCertificateContext();
   const [toasterMessage, setToasterMessage] = useState('');
+  const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
     async function fetchCertificares(index) {
@@ -42,6 +42,7 @@ export default function AdminIssuedCertificate() {
 
   const handleDownload = async id => {
     try {
+      setIsLoading(true);
       const response = await fetch(
         `https://api.varshamekup.in/admin/api/downloadCertificate/${id}`,
         {
@@ -51,15 +52,25 @@ export default function AdminIssuedCertificate() {
           },
         },
       );
-      const blob = await response.blob();
-      download(blob, `Certificate.pdf`);
+      const linkSource = `data:application/pdf;base64,${response}`;
+      const downloadLink = document.createElement('a');
+      const fileName = 'certificate.pdf';
+      
+      downloadLink.href = linkSource;
+      downloadLink.download = fileName;
+      downloadLink.click();
+      window.URL.revokeObjectURL(linkSource);
+      setIsLoading(false);
+
     } catch (error) {
+      setIsLoading(false);
       console.log('Error while downloading file: ', error);
     }
   };
 
   const handleDelete = async id => {
     try {
+      setIsLoading(true);
       const response = await fetch(
         `https://api.varshamekup.in/admin/api/deleteCertificate/${id}`,
         {
@@ -72,8 +83,9 @@ export default function AdminIssuedCertificate() {
 
       const data = await response.json();
       certificateDispatch({ payload: id, type: 'DELETE_CERTIFICATE' });
+      setIsLoading(false);
     } catch (error) {}
-
+    setIsLoading(false);
     console.log(id);
   };
 
@@ -137,7 +149,15 @@ export default function AdminIssuedCertificate() {
                             {certificate.course_name}
                           </td>
                           <td className="px-6 py-4">
-                            <div
+{ isLoading ?
+                      <div
+                          className="inline-block mx-2"
+                        >
+                          <DownloadIcon />
+                        </div>
+
+:
+                          <div
                               className="cursor-pointer inline-block mx-2"
                               onClick={() => {
                                 handleDownload(certificate._id);
@@ -145,6 +165,14 @@ export default function AdminIssuedCertificate() {
                             >
                               <DownloadIcon />
                             </div>
+}
+{isLoading ? 
+                            <div
+                              className="inline-block mx-2"
+                            >
+                              <DeleteIcon />
+                            </div>
+                            :
                             <div
                               className="cursor-pointer inline-block mx-2"
                               onClick={() => {
@@ -153,6 +181,7 @@ export default function AdminIssuedCertificate() {
                             >
                               <DeleteIcon />
                             </div>
+}
                           </td>
                         </tr>
                       );
