@@ -4,6 +4,7 @@ import { Navigate } from 'react-router-dom';
 import Toaster from './Toaster';
 import { DeleteIcon, DownloadIcon } from './Icons';
 import { useCertificateContext } from '../Context/CertificateContext';
+import download from 'downloadjs';
 
 export default function AdminIssuedCertificate() {
   const { state } = useAdminAuthHook();
@@ -52,14 +53,9 @@ export default function AdminIssuedCertificate() {
           },
         },
       );
-      const linkSource = `data:application/pdf;base64,${response}`;
-      const downloadLink = document.createElement('a');
-      const fileName = 'certificate.pdf';
-      
-      downloadLink.href = linkSource;
-      downloadLink.download = fileName;
-      downloadLink.click();
-      window.URL.revokeObjectURL(linkSource);
+        const blon = await response.blob();
+        download(blon, 'certificate.pdf');
+
       setIsLoading(false);
 
     } catch (error) {
