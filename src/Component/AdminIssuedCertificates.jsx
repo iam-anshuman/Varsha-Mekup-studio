@@ -4,13 +4,19 @@ import { Navigate } from 'react-router-dom';
 import Toaster from './Toaster';
 import { DeleteIcon, DownloadIcon } from './Icons';
 import { useCertificateContext } from '../Context/CertificateContext';
-import download from 'downloadjs';
+import throttle from 'lodash.throttle';
 
 export default function AdminIssuedCertificate() {
   const { state } = useAdminAuthHook();
   const { certificates, index, certificateDispatch } = useCertificateContext();
   const [toasterMessage, setToasterMessage] = useState('');
   const [isLoading, setIsLoading] = useState(false);
+  const [percentage, setPercentage] = useState(0);
+
+
+  const updateProgess = throttle((value)=>{
+    setPercentage(value);
+  },200,{leading:true,trailing:true})
 
   useEffect(() => {
     async function fetchCertificares(index) {
@@ -53,9 +59,36 @@ export default function AdminIssuedCertificate() {
           },
         },
       );
-        const blon = await response.blob();
-        download(blon, 'certificate.pdf');
+      if(!response?.body) return;
 
+      const contentLength = response.headers.get('Content-Length');
+      const totalLength = typeof contentLength === 'string' && parseInt(contentLength);
+      // console.log(totalLength);
+      const reader = response.body.getReader();
+      const chunks = [];
+      let receivedLength = 0;
+
+      while(true) {
+        const { done, value } = await reader.read();
+        if(done) {
+          break;
+        }
+        chunks.push(value);
+        receivedLength = receivedLength + value.length;
+        if(typeof totalLength === 'number') {
+          const step = (parseFloat((receivedLength / totalLength).toFixed(2)) * 100);
+          updateProgess(step);
+        }
+      }
+
+      const blob = new Blob(chunks, { type: 'application/pdf' });
+      const url = window.URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = 'certificate.pdf';
+      a.click();
+      window.URL.revokeObjectURL(url);
+      
       setIsLoading(false);
 
     } catch (error) {
@@ -268,6 +301,11 @@ export default function AdminIssuedCertificate() {
               </div>
             </div>
           </div>
+          {percentage > 0 && 
+            <div class="w-full h-6 bg-gray-200 rounded-full dark:bg-gray-700">
+              <div class="h-6 bg-green-700 rounded-md text-white px-1 dark:bg-green-700" style={{width: `${percentage.toFixed()}%`}}> {percentage.toFixed()}% Complete</div>
+            </div>
+            }
         </div>
       ) : (
         <Navigate to="/admins-panel/login" />
