@@ -14,12 +14,11 @@ export default function ForgetPassword() {
   const handleForgetPassword = async e => {
     e.preventDefault();
     const email = e.target.email.value;
+    if (!email) { 
+      alert('Please enter email');
+    }
     await forgetPassword(email);
-    data &&
-      setToasterMessage(data.message) &&
-      setToasterType('success') &&
-      navigate('/login');
-    error && setToasterMessage(error.message) && setToasterType('danger');
+    alert('Please check your spam folder of email for reset link');
     e.target.email.value = '';
   };
 
