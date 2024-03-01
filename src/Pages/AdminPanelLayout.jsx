@@ -20,7 +20,7 @@ export default function AdminPanelLayout() {
           <div className="brand my-6">
             <Link
               className="lg:flex title-font font-medium items-center max-md:mx-auto text-white mb-4 md:mb-0  "
-              to="/admins-panel"
+              to="/"
             >
               <span className=" ml-3 text-base">
                 <div className="mx-2 p-0">Versa</div>
