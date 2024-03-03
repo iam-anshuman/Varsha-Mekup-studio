@@ -23,7 +23,7 @@ export default function AdminPanelLayout() {
               to="/"
             >
               <span className=" ml-3 text-base">
-                <div className="mx-2 p-0">Versa</div>
+                <div className="mx-2 p-0">Varsha</div>
                 <div className="mx-2 p-0">Mekup</div>
                 <div className="mx-2 p-0">Studio</div>
               </span>
