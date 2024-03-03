@@ -32,7 +32,7 @@ export default function Header() {
               className="h-16 w-16 bg-contain rounded invert"
             />
             <span className="ml-3 text-base">
-              <div className="m-0 p-0">Versa</div>
+              <div className="m-0 p-0">Varsha</div>
               <div className="m-0 p-0">Mekup</div>
               <div className="m-0 p-0">Studio</div>
             </span>
