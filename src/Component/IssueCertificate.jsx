@@ -56,6 +56,7 @@ export default function IssueCertificate() {
     const course_name = e.target.course_name.value;
     const course_starting = e.target.course_starting.value;
     const course_ending = e.target.course_ending.value;
+    const course_in_days = e.target.course_in_days.value;
     const course_duration = `${course_starting} to ${course_ending}`;
     const imageAvatar = e.target.upload_image.files[0];
 
@@ -66,7 +67,8 @@ export default function IssueCertificate() {
       !course_name ||
       !course_starting ||
       !course_ending ||
-      !imageAvatar
+      !imageAvatar ||
+      !course_in_days
     ) {
       alert('Kindly Fill all the fields');
       return;
@@ -86,6 +88,7 @@ export default function IssueCertificate() {
         student_name,
         course_name,
         course_duration,
+        course_in_days,
       }),
     );
 
@@ -100,6 +103,7 @@ export default function IssueCertificate() {
       e.target.course_starting.value = '';
       e.target.course_ending.value = '';
       e.target.upload_image.value = '';
+      e.target.course_in_days.value = '';
     } else {
       alert('Error in Creating Certificate');
       e.target.student_email.value = '';
@@ -109,6 +113,7 @@ export default function IssueCertificate() {
       e.target.course_starting.value = '';
       e.target.course_ending.value = '';
       e.target.upload_image.value = '';
+      e.target.course_in_days.value = '';
     }
   };
   return (
@@ -195,6 +200,32 @@ export default function IssueCertificate() {
                         <option>Makeup course </option>
                         <option>Silai Course </option>
                         <option>Nail Art Course </option>
+                      </select>
+                    </div>
+                    <div className="relative mb-2">
+                      <label
+                        htmlFor="course_in_days"
+                        className="leading-7 text-sm  md:text-lg text-gray-200"
+                      >
+                        Number of Days in Course
+                      </label>
+                      <select
+                        name="course_in_days"
+                        id="Course_in_days"
+                        className="w-full bg-gray-800 rounded border border-gray-700 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-900 text-base outline-none text-gray-100 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out"
+                      >
+                        <option>30 Days</option>
+                        <option>60 Days</option>
+                        <option>90 Days</option>
+                        <option>120 Days</option>
+                        <option>150 Days</option>
+                        <option>180 Days</option>
+                        <option>210 Days</option>
+                        <option>240 Days</option>
+                        <option>270 Days</option>
+                        <option>300 Days</option>
+                        <option>330 Days</option>
+                        <option>360 Days</option>
                       </select>
                     </div>
                     <div className="relative mb-2">
