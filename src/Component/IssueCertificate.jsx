@@ -58,6 +58,7 @@ export default function IssueCertificate() {
     const course_ending = e.target.course_ending.value;
     const course_in_days = e.target.course_in_days.value;
     const course_duration = `${course_starting} to ${course_ending}`;
+    const completion_year = e.target.completion_year.value;
     const imageAvatar = e.target.upload_image.files[0];
 
     if (
@@ -68,7 +69,8 @@ export default function IssueCertificate() {
       !course_starting ||
       !course_ending ||
       !imageAvatar ||
-      !course_in_days
+      !course_in_days ||
+      !completion_year
     ) {
       alert('Kindly Fill all the fields');
       return;
@@ -89,6 +91,7 @@ export default function IssueCertificate() {
         course_name,
         course_duration,
         course_in_days,
+        completion_year,
       }),
     );
 
@@ -104,6 +107,7 @@ export default function IssueCertificate() {
       e.target.course_ending.value = '';
       e.target.upload_image.value = '';
       e.target.course_in_days.value = '';
+      e.target.completion_year.value = '';
     } else {
       alert('Error in Creating Certificate');
       e.target.student_email.value = '';
@@ -114,6 +118,7 @@ export default function IssueCertificate() {
       e.target.course_ending.value = '';
       e.target.upload_image.value = '';
       e.target.course_in_days.value = '';
+      e.target.completion_year.value = '';
     }
   };
   return (
@@ -227,6 +232,22 @@ export default function IssueCertificate() {
                         <option>330 Days</option>
                         <option>360 Days</option>
                       </select>
+                    </div>
+                    <div className="relative">
+                      <input
+                        autoComplete="off"
+                        id="completion_year"
+                        name="completion_year"
+                        type="number"
+                        className="peer placeholder-transparent h-10 w-full border-b-2 bg-slate-700 border-indigo-500 text-gray-200 focus:outline-none focus:borer-rose-600"
+                        placeholder="Completion Year"
+                      />
+                      <label
+                        htmlFor="completion_year"
+                        className="absolute left-0 -top-3.5  text-white text-sm peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-440 peer-placeholder-shown:top-2 transition-all peer-focus:-top-3.5 peer-focus:text-gray-200 peer-focus:text-sm"
+                      >
+                        Year of Course Completion
+                      </label>
                     </div>
                     <div className="relative mb-2">
                       <label
